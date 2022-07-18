@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:tv_shows/screens/splash.dart';
+
+import 'routes/router.dart';
+import 'routes/routes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const TVShows());
 }
 
 class TVShows extends StatelessWidget {
   const TVShows({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +18,8 @@ class TVShows extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      onGenerateRoute: TVSRouter.onGenerateRoute,
+      initialRoute: TVSRoutes.splash,
     );
   }
 }
