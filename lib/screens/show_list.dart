@@ -32,6 +32,7 @@ class _ShowListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final User user = BlocProvider.of<GlobalBloc>(context).state.user!;
     final ShowListBloc bloc = BlocProvider.of<ShowListBloc>(context);
+
     return Scaffold(
       body: RefreshIndicator(
         displacement: 60,

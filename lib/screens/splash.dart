@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../routes/routes.dart';
 import '../style/colors.dart';
 import '../style/images.dart';
 
@@ -9,10 +10,10 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /* Future.delayed(
+    Future.delayed(
       const Duration(seconds: 2),
       () => Navigator.pushReplacementNamed(context, TVSRoutes.login),
-    ); */
+    );
 
     return Scaffold(
       backgroundColor: TVSColors.primaryColor,

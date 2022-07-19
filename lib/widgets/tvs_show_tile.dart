@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../model/show.dart';
@@ -22,11 +23,11 @@ class TVSShowTile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(
+              CachedNetworkImage(
                 // i had to do this because I constantly got
                 // "Connection closed before full header was received"
                 // exception
-                show.imageUrl.replaceAll('https', 'http'),
+                imageUrl: show.imageUrl.replaceAll('https', 'http'),
                 height: 200,
                 width: double.infinity,
                 fit: BoxFit.fitWidth,
