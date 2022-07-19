@@ -23,4 +23,10 @@ abstract class TVSTextStyle {
     color: Colors.red,
     fontWeight: FontWeight.bold,
   );
+
+  static const TextStyle appBarTitleTextStyle = TextStyle(
+    fontSize: 35,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  );
 }

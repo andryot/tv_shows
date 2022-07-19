@@ -35,7 +35,7 @@ class _LoginScreen extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.user != null) {
-          Navigator.of(context).pushReplacementNamed(TVSRoutes.splash);
+          Navigator.of(context).pushReplacementNamed(TVSRoutes.showList);
         }
       },
       child: GestureDetector(

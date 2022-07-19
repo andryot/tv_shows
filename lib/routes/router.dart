@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/login.dart';
+import '../screens/show_list.dart';
 import '../screens/splash.dart';
 import 'routes.dart';
 
@@ -14,6 +15,10 @@ abstract class TVSRouter {
       case TVSRoutes.login:
         return MaterialPageRoute<dynamic>(
           builder: (BuildContext context) => const LoginScreen(),
+        );
+      case TVSRoutes.showList:
+        return MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => const ShowListScreen(),
         );
     }
 
