@@ -12,3 +12,7 @@ class _TogglePressedEvent extends _LoginEvent {
 class _LoginPressedEvent extends _LoginEvent {
   const _LoginPressedEvent();
 }
+
+class _EmailOrPasswordChangedEvent extends _LoginEvent {
+  const _EmailOrPasswordChangedEvent();
+}
