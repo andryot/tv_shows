@@ -29,4 +29,10 @@ abstract class TVSTextStyle {
     color: Colors.black,
     fontWeight: FontWeight.bold,
   );
+
+  static const TextStyle showTileTitleTextStyle = TextStyle(
+    fontSize: 24,
+    color: Colors.black,
+    fontWeight: FontWeight.w500,
+  );
 }

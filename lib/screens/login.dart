@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../bloc/global/global_bloc.dart';
 import '../bloc/login/login_bloc.dart';
 import '../routes/routes.dart';
 import '../services/backend_service.dart';
@@ -35,6 +36,7 @@ class _LoginScreen extends StatelessWidget {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state.user != null) {
+          BlocProvider.of<GlobalBloc>(context).updateUser(state.user!);
           Navigator.of(context).pushReplacementNamed(TVSRoutes.showList);
         }
       },

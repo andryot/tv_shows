@@ -9,6 +9,7 @@ import 'services/backend_service.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  final Dio dio = Dio();
   BackendService(dio: Dio());
   runApp(const TVShows());
 }

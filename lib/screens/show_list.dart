@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/global/global_bloc.dart';
 import '../bloc/show_list/show_list_bloc.dart';
+import '../model/user.dart';
+import '../services/backend_service.dart';
 import '../style/text_style.dart';
+import '../widgets/tvs_show_tile.dart';
 
 class ShowListScreen extends StatelessWidget {
   const ShowListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final User user = BlocProvider.of<GlobalBloc>(context).state.user!;
     return BlocProvider(
-      create: (context) => ShowListBloc(),
+      create: (context) => ShowListBloc(
+        backendService: BackendService.instance,
+        user: user,
+      ),
       child: const _ShowListScreen(),
     );
   }
@@ -21,10 +29,14 @@ class _ShowListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ShowListBloc bloc = BlocProvider.of<ShowListBloc>(context);
     return Scaffold(
       body: RefreshIndicator(
+        displacement: 60,
         edgeOffset: 100,
-        onRefresh: () async {},
+        onRefresh: () async {
+          bloc.refresh();
+        },
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -46,24 +58,26 @@ class _ShowListScreen extends StatelessWidget {
                 const SizedBox(width: 20),
               ],
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return Card(
-                    margin: const EdgeInsets.all(15),
-                    child: Container(
-                      color: Colors.blue[100 * (index % 9 + 1)],
-                      height: 80,
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Item $index",
-                        style: const TextStyle(fontSize: 30),
-                      ),
+            BlocBuilder<ShowListBloc, ShowListState>(
+              builder: (context, state) {
+                if (state.shows == null) {
+                  return const SliverToBoxAdapter(
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
                   );
-                },
-                childCount: 1000, // 1000 list items
-              ),
+                }
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return TVSShowTile(
+                        show: state.shows![index],
+                      );
+                    },
+                    childCount: state.shows!.length, // 1000 list items
+                  ),
+                );
+              },
             ),
           ],
         ),

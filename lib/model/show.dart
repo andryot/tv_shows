@@ -4,6 +4,7 @@ class Show {
   final String description;
   final int numberOfReviews;
   final String title;
+  final String imageUrl;
 
   const Show({
     required this.id,
@@ -11,6 +12,7 @@ class Show {
     required this.description,
     required this.numberOfReviews,
     required this.title,
+    required this.imageUrl,
   });
 
   Show.fromJson(Map<String, dynamic> json)
@@ -18,7 +20,8 @@ class Show {
         averageRating = json[ShowJsonKeys.averageRating],
         description = json[ShowJsonKeys.description],
         numberOfReviews = json[ShowJsonKeys.numberOfReviews],
-        title = json[ShowJsonKeys.title];
+        title = json[ShowJsonKeys.title],
+        imageUrl = json[ShowJsonKeys.imageUrl];
 }
 
 abstract class ShowJsonKeys {
@@ -27,4 +30,5 @@ abstract class ShowJsonKeys {
   static const String description = 'description';
   static const String numberOfReviews = 'no_of_reviews';
   static const String title = 'title';
+  static const String imageUrl = 'image_url';
 }
