@@ -6,4 +6,7 @@ abstract class TVSImages {
   static const String topRight = 'assets/images/img-top-right.svg';
 
   static const String logo = 'assets/images/img-login-logo.svg';
+
+  static const String imgPlaceholderSmall =
+      'assets/images/img-placeholder-user1.png';
 }

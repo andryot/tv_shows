@@ -5,6 +5,7 @@ import '../bloc/global/global_bloc.dart';
 import '../bloc/show_list/show_list_bloc.dart';
 import '../model/user.dart';
 import '../services/backend_service.dart';
+import '../style/images.dart';
 import '../style/text_style.dart';
 import '../widgets/tvs_show_tile.dart';
 
@@ -29,6 +30,7 @@ class _ShowListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final User user = BlocProvider.of<GlobalBloc>(context).state.user!;
     final ShowListBloc bloc = BlocProvider.of<ShowListBloc>(context);
     return Scaffold(
       body: RefreshIndicator(
@@ -49,10 +51,10 @@ class _ShowListScreen extends StatelessWidget {
               pinned: true,
               actions: [
                 IconButton(
-                  icon: const Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  ),
+                  splashRadius: 25,
+                  icon: user.imageUrl == null
+                      ? Image.asset(TVSImages.imgPlaceholderSmall)
+                      : Image.network(user.imageUrl!),
                   onPressed: () {},
                 ),
                 const SizedBox(width: 20),

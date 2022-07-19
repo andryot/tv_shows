@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,6 +37,7 @@ class _LoginScreen extends StatelessWidget {
     final double paddingBottom = MediaQuery.of(context).padding.bottom;
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
+        // redirect to show_list screen if login is successful
         if (state.user != null) {
           BlocProvider.of<GlobalBloc>(context).updateUser(state.user!);
           Navigator.of(context).pushReplacementNamed(TVSRoutes.showList);
@@ -136,14 +139,16 @@ class _LoginScreen extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: EdgeInsets.only(
-                      left: 30.0, right: 30.0, bottom: paddingBottom),
+                    left: 30.0,
+                    right: 30.0,
+                    bottom: paddingBottom + (Platform.isAndroid ? 20 : 0),
+                  ),
                   child: SizedBox(
                     width: double.infinity,
                     child: BlocBuilder<LoginBloc, LoginState>(
-                      // TODO
-                      //buildWhen: (previous, current) => ),
                       builder: (context, state) {
-                        final LoginBloc bloc = BlocProvider.of(context);
+                        final LoginBloc bloc =
+                            BlocProvider.of<LoginBloc>(context);
                         return TVSElevatedButton(
                           isLoading: state.isLoading,
                           text: "Login",
