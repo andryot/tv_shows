@@ -9,30 +9,35 @@ class LoginState {
 
   final bool isButtonEnabled;
 
-  const LoginState({
-    required this.isLoading,
-    required this.failure,
-    required this.isPasswordToggled,
-    required this.isButtonEnabled,
-  });
+  final User? user;
+
+  const LoginState(
+      {required this.isLoading,
+      this.failure,
+      required this.isPasswordToggled,
+      required this.isButtonEnabled,
+      this.user});
 
   const LoginState.initial()
       : isLoading = false,
         failure = null,
         isPasswordToggled = true,
-        isButtonEnabled = false;
+        isButtonEnabled = false,
+        user = null;
 
   LoginState copyWith({
     bool? isLoading,
     Failure? failure,
     bool? isPasswordToggled,
     bool? isButtonEnabled,
+    User? user,
   }) {
     return LoginState(
       isLoading: isLoading ?? this.isLoading,
       failure: failure,
       isPasswordToggled: isPasswordToggled ?? this.isPasswordToggled,
       isButtonEnabled: isButtonEnabled ?? this.isButtonEnabled,
+      user: user ?? this.user,
     );
   }
 }

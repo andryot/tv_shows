@@ -17,4 +17,10 @@ abstract class TVSTextStyle {
     color: Colors.white,
     decoration: TextDecoration.underline,
   );
+
+  static const TextStyle errorTextStyle = TextStyle(
+    fontSize: 15,
+    color: Colors.red,
+    fontWeight: FontWeight.bold,
+  );
 }
