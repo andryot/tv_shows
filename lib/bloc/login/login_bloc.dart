@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/user.dart';
@@ -46,7 +47,8 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
 
   // PUBLIC API
   void togglePassword() => add(const _TogglePressedEvent());
-  void login() => add(const _LoginPressedEvent());
+  void login(String email, String password) =>
+      add(_LoginPressedEvent(email, password));
 
   // HANDLERS
 
@@ -60,8 +62,8 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
     emit(state.copyWith(isLoading: true));
 
     final Either<Failure, User> userOrFailure = await _backendService.login(
-      email: _emailEditingController.text,
-      password: _passwordEditingController.text,
+      email: event.email,
+      password: event.password,
     );
 
     if (userOrFailure.isError()) {
@@ -71,8 +73,6 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
       ));
       return null;
     }
-
-    //await Future.delayed(const Duration(seconds: 3));
 
     emit(state.copyWith(
       isLoading: false,

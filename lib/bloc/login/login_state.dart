@@ -1,7 +1,7 @@
 part of 'login_bloc.dart';
 
 @immutable
-class LoginState {
+class LoginState extends Equatable {
   final bool isLoading;
   final Failure? failure;
 
@@ -40,4 +40,13 @@ class LoginState {
       user: user ?? this.user,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        isLoading,
+        failure,
+        isPasswordToggled,
+        isButtonEnabled,
+        user?.email,
+      ];
 }

@@ -152,7 +152,10 @@ class _LoginScreen extends StatelessWidget {
                         return TVSElevatedButton(
                           isLoading: state.isLoading,
                           text: "Login",
-                          onPressed: bloc.login,
+                          onPressed: () => bloc.login(
+                            bloc.emailEditingController.text,
+                            bloc.passwordEditingController.text,
+                          ),
                           enabled: state.isButtonEnabled,
                         );
                       },
