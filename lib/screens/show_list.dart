@@ -109,6 +109,7 @@ class _ShowListScreen extends StatelessWidget {
   Widget _slidingUpPanel(BuildContext context, User user) {
     final double height = MediaQuery.of(context).size.height * 0.5;
     final double paddingBottom = MediaQuery.of(context).padding.bottom;
+    final GlobalBloc globalBloc = BlocProvider.of<GlobalBloc>(context);
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -150,7 +151,10 @@ class _ShowListScreen extends StatelessWidget {
               width: double.infinity,
               child: TVSElevatedButton(
                 text: "Logout",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                  globalBloc.logout(context);
+                },
                 color: TVSColors.primaryColor,
                 textColor: Colors.white,
               ),
