@@ -15,6 +15,7 @@ class Show {
     required this.imageUrl,
   });
 
+  @override
   Show.fromJson(Map<String, dynamic> json)
       : id = json[ShowJsonKeys.id] as String,
         averageRating = json[ShowJsonKeys.averageRating] as int,

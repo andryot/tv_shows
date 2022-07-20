@@ -35,7 +35,8 @@ void main() {
         wait: const Duration(seconds: 2),
         expect: () => [
           const LoginState.initial().copyWith(isLoading: true),
-          const LoginState.initial().copyWith(failure: const Unauthorized()),
+          const LoginState.initial()
+              .copyWith(failure: const UnauthorizedFailure()),
         ],
       );
       blocTest(
