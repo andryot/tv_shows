@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,6 +8,7 @@ import '../model/user.dart';
 import '../services/backend_service.dart';
 import '../style/images.dart';
 import '../style/text_style.dart';
+import '../widgets/tvs_loading_indicator.dart';
 import '../widgets/tvs_show_tile.dart';
 
 class ShowListScreen extends StatelessWidget {
@@ -34,56 +36,59 @@ class _ShowListScreen extends StatelessWidget {
     final ShowListBloc bloc = BlocProvider.of<ShowListBloc>(context);
 
     return Scaffold(
-      body: RefreshIndicator(
-        displacement: 60,
-        edgeOffset: 100,
-        onRefresh: () async {
-          bloc.refresh();
-        },
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              automaticallyImplyLeading: false,
-              centerTitle: false,
-              titleTextStyle: TVSTextStyle.appBarTitleTextStyle,
-              titleSpacing: 20,
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              title: const Text("Shows"),
-              pinned: true,
-              actions: [
-                IconButton(
-                  splashRadius: 25,
-                  icon: user.imageUrl == null
-                      ? Image.asset(TVSImages.imgPlaceholderSmall)
-                      : Image.network(user.imageUrl!),
-                  onPressed: () {},
-                ),
-                const SizedBox(width: 20),
-              ],
-            ),
-            BlocBuilder<ShowListBloc, ShowListState>(
-              builder: (context, state) {
-                if (state.shows == null) {
-                  return const SliverToBoxAdapter(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return TVSShowTile(
-                        show: state.shows![index],
-                      );
-                    },
-                    childCount: state.shows!.length, // 1000 list items
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: false,
+            titleTextStyle: TVSTextStyle.appBarTitleTextStyle,
+            titleSpacing: 20,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            title: const Text("Shows"),
+            pinned: true,
+            actions: [
+              IconButton(
+                splashRadius: 25,
+                icon: user.imageUrl == null
+                    ? Image.asset(TVSImages.imgPlaceholderSmall)
+                    : Image.network(user.imageUrl!),
+                onPressed: () {},
+              ),
+              const SizedBox(width: 20),
+            ],
+          ),
+          CupertinoSliverRefreshControl(
+            onRefresh: () async => bloc.refresh(),
+            builder: (BuildContext context, RefreshIndicatorMode mode, double x,
+                double y, double z) {
+              return const Padding(
+                padding: EdgeInsets.only(top: 18.0),
+                child: TVSLoadingIndicator(radius: 8, dotRadius: 3.41),
+              );
+            },
+          ),
+          BlocBuilder<ShowListBloc, ShowListState>(
+            builder: (context, state) {
+              if (state.shows == null) {
+                return const SliverToBoxAdapter(
+                  child: Center(
+                    child: CircularProgressIndicator(),
                   ),
                 );
-              },
-            ),
-          ],
-        ),
+              }
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return TVSShowTile(
+                      show: state.shows![index],
+                    );
+                  },
+                  childCount: state.shows!.length, // 1000 list items
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

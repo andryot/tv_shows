@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../model/show.dart';
 import '../style/text_style.dart';
+import 'tvs_loading_indicator.dart';
 
 class TVSShowTile extends StatelessWidget {
   final Show show;
@@ -24,10 +25,14 @@ class TVSShowTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CachedNetworkImage(
-                // i had to do this because I constantly got
+                // I had to do this because I constantly got
                 // "Connection closed before full header was received"
                 // exception
                 imageUrl: show.imageUrl.replaceAll('https', 'http'),
+                placeholder: (context, url) => const TVSLoadingIndicator(
+                  radius: 16,
+                  dotRadius: 6.82,
+                ),
                 height: 200,
                 width: double.infinity,
                 fit: BoxFit.fitWidth,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../style/colors.dart';
+import 'tvs_loading_indicator.dart';
 
 class TVSElevatedButton extends StatelessWidget {
   final String text;
@@ -37,9 +38,7 @@ class TVSElevatedButton extends StatelessWidget {
               ? null
               : onPressed,
       child: isLoading == true
-          ? const CircularProgressIndicator(
-              color: TVSColors.primaryColor,
-            )
+          ? const TVSLoadingIndicator(radius: 11.2, dotRadius: 4.77)
           : Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(

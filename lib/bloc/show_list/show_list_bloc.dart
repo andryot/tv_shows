@@ -45,7 +45,7 @@ class ShowListBloc extends Bloc<_ShowListEvent, ShowListState> {
   }
 
   FutureOr<void> _onReload(_ReloadEvent event, Emitter<ShowListState> emit) {
-    emit(state.copyWith(shows: null, overrideShows: true));
+    emit(state.copyWith(shows: [], overrideShows: true));
     add(const _InitializeEvent());
   }
 }
