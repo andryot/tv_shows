@@ -7,6 +7,8 @@ class TVSTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
+  final Color? color;
+  final Color? labelColor;
   const TVSTextField({
     Key? key,
     this.obscureText,
@@ -15,6 +17,8 @@ class TVSTextField extends StatelessWidget {
     this.suffixIcon,
     this.textInputType,
     this.textInputAction,
+    this.color,
+    this.labelColor,
   }) : super(key: key);
 
   @override
@@ -24,19 +28,19 @@ class TVSTextField extends StatelessWidget {
       textInputAction: textInputAction,
       obscureText: obscureText ?? false,
       controller: controller,
-      style: const TextStyle(color: Colors.white),
+      style: TextStyle(color: color ?? Colors.white),
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: const TextStyle(color: Colors.white),
-        enabledBorder: const OutlineInputBorder(
+        labelStyle: TextStyle(color: labelColor ?? Colors.white),
+        enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.white,
+            color: color ?? Colors.white,
             width: 1,
           ),
         ),
-        focusedBorder: const OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.white,
+            color: color ?? Colors.white,
             width: 2,
           ),
         ),

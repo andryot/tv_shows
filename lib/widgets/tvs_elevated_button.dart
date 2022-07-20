@@ -8,12 +8,16 @@ class TVSElevatedButton extends StatelessWidget {
   final Function()? onPressed;
   final bool? enabled;
   final bool? isLoading;
+  final Color? color;
+  final Color? textColor;
   const TVSElevatedButton({
     Key? key,
     required this.text,
     this.onPressed,
     this.enabled = true,
     this.isLoading = false,
+    this.color,
+    this.textColor,
   }) : super(key: key);
 
   @override
@@ -22,9 +26,10 @@ class TVSElevatedButton extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
-          enabled == true
-              ? TVSColors.enabledButtonColor
-              : TVSColors.disabledButtonColor,
+          color ??
+              (enabled == true
+                  ? TVSColors.enabledButtonColor
+                  : TVSColors.disabledButtonColor),
         ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
@@ -44,9 +49,10 @@ class TVSElevatedButton extends StatelessWidget {
               child: Text(
                 text,
                 style: TextStyle(
-                  color: enabled == true
-                      ? TVSColors.enabledButtonChildColor
-                      : TVSColors.disabledButtonChildColor,
+                  color: textColor ??
+                      (enabled == true
+                          ? TVSColors.enabledButtonChildColor
+                          : TVSColors.disabledButtonChildColor),
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                 ),
