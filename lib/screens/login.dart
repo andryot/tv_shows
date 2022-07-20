@@ -34,6 +34,7 @@ class _LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final LoginBloc bloc = BlocProvider.of<LoginBloc>(context);
     final double paddingBottom = MediaQuery.of(context).padding.bottom;
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
@@ -48,35 +49,54 @@ class _LoginScreen extends StatelessWidget {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: TVSColors.primaryColor,
-          body: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: SvgPicture.asset(TVSImages.topRight),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: SvgPicture.asset(TVSImages.topLeft),
-              ),
-              Hero(
-                tag: 'logo',
-                child: Align(
-                  heightFactor: 5.5,
-                  widthFactor: 1.7,
-                  alignment: Alignment.bottomCenter,
-                  child: SvgPicture.asset(
-                    TVSImages.logo,
+          body: BlocBuilder<LoginBloc, LoginState>(
+            builder: (context, state) {
+              return Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Stack(
+                      alignment: Alignment.topRight,
+                      children: [
+                        AnimatedRotation(
+                            duration: const Duration(seconds: 5),
+                            turns: 0,
+                            child: SvgPicture.asset(TVSImages.topRight)),
+                        Positioned(
+                          bottom: 0,
+                          right: 20,
+                          top: 187,
+                          child: AnimatedRotation(
+                            duration: const Duration(milliseconds: 100),
+                            turns: state.turns,
+                            child: Image.asset(
+                              TVSImages.topRightArrowCropped,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: BlocBuilder<LoginBloc, LoginState>(
-                    builder: (context, state) {
-                      final LoginBloc bloc = BlocProvider.of(context);
-                      return Column(
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: SvgPicture.asset(TVSImages.topLeft),
+                  ),
+                  Hero(
+                    tag: 'logo',
+                    child: Align(
+                      heightFactor: 5.5,
+                      widthFactor: 1.7,
+                      alignment: Alignment.bottomCenter,
+                      child: SvgPicture.asset(
+                        TVSImages.logo,
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -91,6 +111,7 @@ class _LoginScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           TVSTextField(
+                            onChanged: (_) => bloc.onChanged(),
                             labelText: "Email",
                             textInputType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
@@ -98,6 +119,7 @@ class _LoginScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           TVSTextField(
+                            onChanged: (_) => bloc.onChanged(),
                             labelText: "Password",
                             obscureText: state.isPasswordToggled,
                             textInputType: TextInputType.visiblePassword,
@@ -130,26 +152,20 @@ class _LoginScreen extends StatelessWidget {
                             ),
                           )
                         ],
-                      );
-                    },
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: 30.0,
-                    right: 30.0,
-                    bottom: paddingBottom + (Platform.isAndroid ? 20 : 0),
-                  ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: BlocBuilder<LoginBloc, LoginState>(
-                      builder: (context, state) {
-                        final LoginBloc bloc =
-                            BlocProvider.of<LoginBloc>(context);
-                        return TVSElevatedButton(
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: 30.0,
+                        right: 30.0,
+                        bottom: paddingBottom + (Platform.isAndroid ? 20 : 0),
+                      ),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: TVSElevatedButton(
                           isLoading: state.isLoading,
                           text: "Login",
                           onPressed: () => bloc.login(
@@ -157,13 +173,13 @@ class _LoginScreen extends StatelessWidget {
                             bloc.passwordEditingController.text,
                           ),
                           enabled: state.isButtonEnabled,
-                        );
-                      },
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           ),
         ),
       ),

@@ -9,6 +9,7 @@ class TVSTextField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final Color? color;
   final Color? labelColor;
+  final void Function(String?)? onChanged;
   const TVSTextField({
     Key? key,
     this.obscureText,
@@ -19,11 +20,13 @@ class TVSTextField extends StatelessWidget {
     this.textInputAction,
     this.color,
     this.labelColor,
+    this.onChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: onChanged,
       keyboardType: textInputType,
       textInputAction: textInputAction,
       obscureText: obscureText ?? false,

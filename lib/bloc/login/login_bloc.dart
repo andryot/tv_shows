@@ -27,10 +27,10 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
     _emailEditingController = TextEditingController();
     _passwordEditingController = TextEditingController();
 
-    _emailEditingController
+    /*  _emailEditingController
         .addListener(() => add(const _EmailOrPasswordChangedEvent()));
     _passwordEditingController
-        .addListener(() => add(const _EmailOrPasswordChangedEvent()));
+        .addListener(() => add(const _EmailOrPasswordChangedEvent())); */
 
     on<_TogglePressedEvent>(_onTogglePressed);
     on<_LoginPressedEvent>(_onLoginPressed);
@@ -49,6 +49,8 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
   void togglePassword() => add(const _TogglePressedEvent());
   void login(String email, String password) =>
       add(_LoginPressedEvent(email, password));
+
+  void onChanged() => add(const _EmailOrPasswordChangedEvent());
 
   // HANDLERS
 
@@ -82,6 +84,7 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
 
   FutureOr<void> _onEmailOrPasswordChanged(
       _EmailOrPasswordChangedEvent event, Emitter<LoginState> emit) {
+    emit(state.copyWith(turns: state.turns - 0.2));
     if (shouldButtonBeEnabled()) {
       if (state.isButtonEnabled) return null;
       emit(state.copyWith(isButtonEnabled: true));
