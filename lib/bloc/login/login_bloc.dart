@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/user.dart';
@@ -26,10 +27,10 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
     _emailEditingController = TextEditingController();
     _passwordEditingController = TextEditingController();
 
-    _emailEditingController
+    /*  _emailEditingController
         .addListener(() => add(const _EmailOrPasswordChangedEvent()));
     _passwordEditingController
-        .addListener(() => add(const _EmailOrPasswordChangedEvent()));
+        .addListener(() => add(const _EmailOrPasswordChangedEvent())); */
 
     on<_TogglePressedEvent>(_onTogglePressed);
     on<_LoginPressedEvent>(_onLoginPressed);
@@ -46,7 +47,10 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
 
   // PUBLIC API
   void togglePassword() => add(const _TogglePressedEvent());
-  void login() => add(const _LoginPressedEvent());
+  void login(String email, String password) =>
+      add(_LoginPressedEvent(email, password));
+
+  void onChanged() => add(const _EmailOrPasswordChangedEvent());
 
   // HANDLERS
 
@@ -60,8 +64,8 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
     emit(state.copyWith(isLoading: true));
 
     final Either<Failure, User> userOrFailure = await _backendService.login(
-      email: _emailEditingController.text,
-      password: _passwordEditingController.text,
+      email: event.email,
+      password: event.password,
     );
 
     if (userOrFailure.isError()) {
@@ -72,8 +76,6 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
       return null;
     }
 
-    //await Future.delayed(const Duration(seconds: 3));
-
     emit(state.copyWith(
       isLoading: false,
       user: userOrFailure.value,
@@ -82,6 +84,7 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
 
   FutureOr<void> _onEmailOrPasswordChanged(
       _EmailOrPasswordChangedEvent event, Emitter<LoginState> emit) {
+    emit(state.copyWith(turns: state.turns - 0.2));
     if (shouldButtonBeEnabled()) {
       if (state.isButtonEnabled) return null;
       emit(state.copyWith(isButtonEnabled: true));

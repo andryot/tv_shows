@@ -8,7 +8,7 @@ class User {
   final String? tokenType;
   final String? uid;
 
-  const User({
+  User({
     this.id,
     this.email,
     this.imageUrl,

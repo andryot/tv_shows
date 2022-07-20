@@ -70,10 +70,10 @@ class BackendService {
 
         return value(User.fromJson(combinedData));
       } else {
-        return error(const Unauthorized());
+        return error(const UnauthorizedFailure());
       }
     } on DioError catch (_) {
-      return error(const Unauthorized());
+      return error(const UnauthorizedFailure());
     }
   }
 
@@ -91,12 +91,14 @@ class BackendService {
 
       final Response<void> response = await _dio.getUri(
         uri,
-        options: Options(headers: {
-          UserJsonKeys.accessToken: user.accessToken,
-          UserJsonKeys.client: user.client,
-          UserJsonKeys.tokenType: user.tokenType,
-          UserJsonKeys.uid: user.uid,
-        }),
+        options: Options(
+          headers: {
+            UserJsonKeys.accessToken: user.accessToken,
+            UserJsonKeys.client: user.client,
+            UserJsonKeys.tokenType: user.tokenType,
+            UserJsonKeys.uid: user.uid,
+          },
+        ),
       );
       if (response.statusCode == HttpStatus.ok) {
         final Map<String, dynamic> bodyContents =
@@ -110,10 +112,10 @@ class BackendService {
 
         return value(shows);
       } else {
-        return error(const Unauthorized());
+        return error(const UnauthorizedFailure());
       }
     } on DioError catch (_) {
-      return error(const Unauthorized());
+      return error(const UnauthorizedFailure());
     }
   }
 }
