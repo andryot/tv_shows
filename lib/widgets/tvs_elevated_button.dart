@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
 import '../style/colors.dart';
+import 'tvs_loading_indicator.dart';
 
 class TVSElevatedButton extends StatelessWidget {
   final String text;
-  final Function()? onPressed;
+  final void Function()? onPressed;
   final bool? enabled;
   final bool? isLoading;
+  final Color? color;
+  final Color? textColor;
   const TVSElevatedButton({
     Key? key,
     required this.text,
     this.onPressed,
     this.enabled = true,
     this.isLoading = false,
+    this.color,
+    this.textColor,
   }) : super(key: key);
 
   @override
@@ -21,9 +26,10 @@ class TVSElevatedButton extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
-          enabled == true
-              ? TVSColors.enabledButtonColor
-              : TVSColors.disabledButtonColor,
+          color ??
+              (enabled == true
+                  ? TVSColors.enabledButtonColor
+                  : TVSColors.disabledButtonColor),
         ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
@@ -37,17 +43,16 @@ class TVSElevatedButton extends StatelessWidget {
               ? null
               : onPressed,
       child: isLoading == true
-          ? const CircularProgressIndicator(
-              color: TVSColors.primaryColor,
-            )
+          ? const TVSLoadingIndicator(radius: 11.2, dotRadius: 4.77)
           : Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 text,
                 style: TextStyle(
-                  color: enabled == true
-                      ? TVSColors.enabledButtonChildColor
-                      : TVSColors.disabledButtonChildColor,
+                  color: textColor ??
+                      (enabled == true
+                          ? TVSColors.enabledButtonChildColor
+                          : TVSColors.disabledButtonChildColor),
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                 ),

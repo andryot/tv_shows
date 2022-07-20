@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(
       const Duration(seconds: 2),
-      () => Navigator.pushNamed(context, TVSRoutes.login),
+      () => Navigator.pushReplacementNamed(context, TVSRoutes.login),
     );
 
     return Scaffold(
