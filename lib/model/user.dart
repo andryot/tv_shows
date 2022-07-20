@@ -39,13 +39,13 @@ class User {
 
   @override
   User.fromJson(Map<String, dynamic> json)
-      : id = json[UserJsonKeys.id],
-        email = json[UserJsonKeys.email],
-        imageUrl = json[UserJsonKeys.imageUrl],
-        accessToken = json[UserJsonKeys.accessToken],
-        client = json[UserJsonKeys.client],
-        tokenType = json[UserJsonKeys.tokenType],
-        uid = json[UserJsonKeys.uid];
+      : id = json[UserJsonKeys.id] as String,
+        email = json[UserJsonKeys.email] as String,
+        imageUrl = json[UserJsonKeys.imageUrl] as String,
+        accessToken = json[UserJsonKeys.accessToken] as String,
+        client = json[UserJsonKeys.client] as String,
+        tokenType = json[UserJsonKeys.tokenType] as String,
+        uid = json[UserJsonKeys.uid] as String;
 }
 
 abstract class UserJsonKeys {

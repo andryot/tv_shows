@@ -38,7 +38,7 @@ class ShowListBloc extends Bloc<_ShowListEvent, ShowListState> {
     );
 
     if (showsOrFailure.isError()) {
-      // TODO
+      emit(state.copyWith(failure: showsOrFailure.error));
       return null;
     }
     emit(state.copyWith(shows: showsOrFailure.value));

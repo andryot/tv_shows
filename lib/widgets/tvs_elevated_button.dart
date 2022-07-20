@@ -5,7 +5,7 @@ import 'tvs_loading_indicator.dart';
 
 class TVSElevatedButton extends StatelessWidget {
   final String text;
-  final Function()? onPressed;
+  final void Function()? onPressed;
   final bool? enabled;
   final bool? isLoading;
   final Color? color;

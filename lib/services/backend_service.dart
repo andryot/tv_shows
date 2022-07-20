@@ -20,7 +20,7 @@ class BackendService {
     if (_instance != null) {
       throw StateError('BackendService already created');
     }
-
+    dio.interceptors.add(CustomInterceptor());
     _instance = BackendService._(dio: dio);
 
     return _instance!;
@@ -42,7 +42,7 @@ class BackendService {
         ],
       );
 
-      final Response response = await _dio.postUri(
+      final Response<void> response = await _dio.postUri(
         uri,
         data: {
           BackendServiceJsonKeys.email: email,
@@ -50,11 +50,13 @@ class BackendService {
         },
       );
       if (response.statusCode == HttpStatus.created) {
-        final Map<String, dynamic> bodyContents = response.data;
+        final Map<String, dynamic> bodyContents =
+            response.data as Map<String, dynamic>;
 
         final Map<String, dynamic> combinedData = HashMap();
 
-        combinedData.addAll(bodyContents[BackendServiceJsonKeys.user]);
+        combinedData.addAll(
+            bodyContents[BackendServiceJsonKeys.user] as Map<String, dynamic>);
 
         // add all required fields from header values
         combinedData[UserJsonKeys.accessToken] =
@@ -87,7 +89,7 @@ class BackendService {
         ],
       );
 
-      final Response response = await _dio.getUri(
+      final Response<void> response = await _dio.getUri(
         uri,
         options: Options(headers: {
           UserJsonKeys.accessToken: user.accessToken,
@@ -97,10 +99,13 @@ class BackendService {
         }),
       );
       if (response.statusCode == HttpStatus.ok) {
-        final Map<String, dynamic> bodyContents = response.data;
+        final Map<String, dynamic> bodyContents =
+            response.data as Map<String, dynamic>;
 
-        final List<Show> shows = bodyContents[BackendServiceJsonKeys.shows]
-            .map<Show>((dynamic show) => Show.fromJson(show))
+        final List<Show> shows = (bodyContents[BackendServiceJsonKeys.shows]
+                as List)
+            .map<Show>(
+                (dynamic show) => Show.fromJson(show as Map<String, dynamic>))
             .toList();
 
         return value(shows);
@@ -110,6 +115,28 @@ class BackendService {
     } on DioError catch (_) {
       return error(const Unauthorized());
     }
+  }
+}
+
+class CustomInterceptor extends Interceptor {
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    print('REQUEST[${options.method}] => PATH: ${options.path}');
+    return super.onRequest(options, handler);
+  }
+
+  @override
+  void onResponse(Response<void> response, ResponseInterceptorHandler handler) {
+    print(
+        'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
+    super.onResponse(response, handler);
+  }
+
+  @override
+  Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
+    print(
+        'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
+    return super.onError(err, handler);
   }
 }
 

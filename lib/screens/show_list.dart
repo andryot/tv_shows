@@ -42,6 +42,7 @@ class _ShowListScreen extends StatelessWidget {
 
     return Scaffold(
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
@@ -58,7 +59,7 @@ class _ShowListScreen extends StatelessWidget {
                     ? Image.asset(TVSImages.imgPlaceholderSmall)
                     : Image.network(user.imageUrl!),
                 onPressed: () {
-                  showModalBottomSheet(
+                  showModalBottomSheet<void>(
                     backgroundColor: Colors.transparent,
                     context: context,
                     builder: (context) => _slidingUpPanel(context, user),
@@ -82,6 +83,29 @@ class _ShowListScreen extends StatelessWidget {
           ),
           BlocBuilder<ShowListBloc, ShowListState>(
             builder: (context, state) {
+              // display error
+              if (state.failure != null) {
+                return SliverFillRemaining(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.error_rounded,
+                          size: 50,
+                          color: Colors.red,
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          "Failed to fetch shows.\nPlease check your internet connection.",
+                          textAlign: TextAlign.center,
+                          style: TVSTextStyle.errorTextStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
               if (state.shows == null) {
                 return const SliverToBoxAdapter(
                   child: Center(
@@ -161,7 +185,7 @@ class _ShowListScreen extends StatelessWidget {
             ),
             SizedBox(
               height: paddingBottom + (Platform.isAndroid ? 20 : 0),
-            )
+            ),
           ],
         ),
       ),

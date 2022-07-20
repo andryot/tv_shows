@@ -16,12 +16,12 @@ class Show {
   });
 
   Show.fromJson(Map<String, dynamic> json)
-      : id = json[ShowJsonKeys.id],
-        averageRating = json[ShowJsonKeys.averageRating],
-        description = json[ShowJsonKeys.description],
-        numberOfReviews = json[ShowJsonKeys.numberOfReviews],
-        title = json[ShowJsonKeys.title],
-        imageUrl = json[ShowJsonKeys.imageUrl];
+      : id = json[ShowJsonKeys.id] as String,
+        averageRating = json[ShowJsonKeys.averageRating] as int,
+        description = json[ShowJsonKeys.description] as String,
+        numberOfReviews = json[ShowJsonKeys.numberOfReviews] as int,
+        title = json[ShowJsonKeys.title] as String,
+        imageUrl = json[ShowJsonKeys.imageUrl] as String;
 }
 
 abstract class ShowJsonKeys {
