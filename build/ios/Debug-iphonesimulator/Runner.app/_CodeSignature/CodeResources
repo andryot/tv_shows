@@ -110,7 +110,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		2ceaZ5VsrBE0F+iR+lmACmnFP00=
+		xzx1Hk42tIMlsWn0/Zdfa2F1ipQ=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -118,7 +118,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		Sb4hr4zPNVWcdrck1s1btMxZ+T4=
+		dZSliPamQNeq1Qgn1BnjO4BAtbY=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
@@ -130,7 +130,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NOTICES.Z</key>
 		<data>
-		Y6vmDHBLbWHHAzroh0N1/XgbYrE=
+		4NpQshJ+7zgrUH8X6an+ihmkWIE=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/icons/ic-broken-camera.svg</key>
 		<data>
@@ -190,7 +190,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		FuqJKCq2l19Ln4ih143YE98V+u0=
+		eiLT8vy4XhWK8CdE2+URXoS6D8s=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/vm_snapshot_data</key>
 		<data>
@@ -198,7 +198,7 @@
 		</data>
 		<key>Frameworks/FMDB.framework/FMDB</key>
 		<data>
-		mcRe+xb/iaWGUD9+lTx4C6xnItU=
+		96+nckF6vWVrnsfbB2PgS5pLbEM=
 		</data>
 		<key>Frameworks/FMDB.framework/Info.plist</key>
 		<data>
@@ -210,7 +210,7 @@
 		</data>
 		<key>Frameworks/Flutter.framework/Flutter</key>
 		<data>
-		5BZ2uyKpFdgEzn0NjH+d2aLB5e8=
+		ENJ7SFCkyYFjLz75gXNBlaQJyDc=
 		</data>
 		<key>Frameworks/Flutter.framework/Headers/Flutter.h</key>
 		<data>
@@ -292,17 +292,17 @@
 		<data>
 		5zcJ5BY+w7z+M0to6P+uUWPn04o=
 		</data>
-		<key>Frameworks/flutter_keychain.framework/Info.plist</key>
+		<key>Frameworks/flutter_secure_storage.framework/Info.plist</key>
 		<data>
-		U5woeFxUSVtT8QPRTZzoNm6rZPQ=
+		yB3YRsb1p757nBH08LOl5dexay8=
 		</data>
-		<key>Frameworks/flutter_keychain.framework/_CodeSignature/CodeResources</key>
+		<key>Frameworks/flutter_secure_storage.framework/_CodeSignature/CodeResources</key>
 		<data>
-		XFUn1j2H9Y161NkUWl2Sq3nDi5I=
+		VUdL+Wu+Fgde/c2vDXCWGTktSnM=
 		</data>
-		<key>Frameworks/flutter_keychain.framework/flutter_keychain</key>
+		<key>Frameworks/flutter_secure_storage.framework/flutter_secure_storage</key>
 		<data>
-		vejLfi+vqQLrhxmcn5VTeviqngk=
+		EQ3s5kHc6wc8sO/JYIyNhv2xdy4=
 		</data>
 		<key>Frameworks/path_provider_ios.framework/Info.plist</key>
 		<data>
@@ -314,7 +314,7 @@
 		</data>
 		<key>Frameworks/path_provider_ios.framework/path_provider_ios</key>
 		<data>
-		2ctEwidyKmIT9MfAdeVwk+gYAX8=
+		jCBoya4oaQQSXvhWcmU9i4MXFbQ=
 		</data>
 		<key>Frameworks/sqflite.framework/Info.plist</key>
 		<data>
@@ -326,7 +326,7 @@
 		</data>
 		<key>Frameworks/sqflite.framework/sqflite</key>
 		<data>
-		h201xxKWzBq4Ncc3RIqD2G8E/vQ=
+		O8eTooMWAqfuWxOd8ZAhXKSJCzc=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -525,7 +525,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yCLo35vbdmrQjT87zxE0f1Bs6eH6elBTq4eB7BjFyNM=
+			U8xhvCxQsaeDXikcqSz4oUsNm6l5usP72ZV2xlveBkA=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -539,7 +539,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6t628cA0+N1eevmCLu+DSQ7q85VEVlLfOFaFFeW1eU0=
+			Go/spq38g9sduShyjjUUK7X0Cwbi8qdMmr4NG7Tn8fE=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
@@ -560,7 +560,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IbuVu7nCsYzqeEF/XtiNK4MFWf4A+k7YQf4fQy/iI0o=
+			ZqFglS1sgkPtmvg0obEq9vIiWJo3wh6qpC3lwf7QkZ0=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/icons/ic-broken-camera.svg</key>
@@ -665,7 +665,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			XpSiZ7JV7QGWlFw6OoQa8EOLK38ku216VT2o11P3t8g=
+			+TamfJyD/ncyWa+S3xj3imXj9/1wdJZgNZenDjYojv8=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/vm_snapshot_data</key>
@@ -679,7 +679,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			//GQ69FxtkPlSQr4pGijVlMaxL1ooq1Ps0ueAGFpigM=
+			aCtBIToET8uGuCciCW6QcN/tkEQU7rGkY9mJczMtq7A=
 			</data>
 		</dict>
 		<key>Frameworks/FMDB.framework/Info.plist</key>
@@ -700,7 +700,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			eKhpZuFTA2yNV7xjy6xDDIASrfbai5lPFI+ndcKKTsA=
+			f4V2iYu3Ohf+szV3e+uwcYfsZgOENnHSDU9kEbjoq2Y=
 			</data>
 		</dict>
 		<key>Frameworks/Flutter.framework/Headers/Flutter.h</key>
@@ -843,25 +843,25 @@
 			yNAOslsdK6e70q88cOrqlKovbuH0GiUDe+ICgawnSrQ=
 			</data>
 		</dict>
-		<key>Frameworks/flutter_keychain.framework/Info.plist</key>
+		<key>Frameworks/flutter_secure_storage.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			T50HB3ghCNDy0Tu+jTi245Y2uphEELF8V2Fl+oJK1MA=
+			VKNvD0fpQIk1w7V0ZsgqydIvVDt+EkgSL2revJdTr4Y=
 			</data>
 		</dict>
-		<key>Frameworks/flutter_keychain.framework/_CodeSignature/CodeResources</key>
+		<key>Frameworks/flutter_secure_storage.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			j1ckchBVnoh/uwQNpSvPGymGsBV5+rY7oIkvrGhfy3o=
+			lnrdxJpzLxfw6Q8gXqDTASIcCYjUDsauviCwIHxogl4=
 			</data>
 		</dict>
-		<key>Frameworks/flutter_keychain.framework/flutter_keychain</key>
+		<key>Frameworks/flutter_secure_storage.framework/flutter_secure_storage</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			xjkWMtRZjadYP8hPJ6eOmdq4Q2yZeRifv5IdqbyER1U=
+			Gf0JnU6W2UVugDW9ET7he1KHkoh7ArYbb4c/eAHIB40=
 			</data>
 		</dict>
 		<key>Frameworks/path_provider_ios.framework/Info.plist</key>
@@ -882,7 +882,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZwAZNuVR2WSn4xZLilTqK9bNHYlMmEsDu0j32fFQK3Y=
+			3ZLQ4WMzEjEK7BEaNL3Fk0IiRaiL/vXm1RLXspO33NQ=
 			</data>
 		</dict>
 		<key>Frameworks/sqflite.framework/Info.plist</key>
@@ -903,7 +903,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fqNIE1as+V0DWyVx1U2nz3e+SGNh0SqkvKVNXx80bTc=
+			zxPmxfhVx7Db2rrD+ornXDFI0mj9E1vI7FfsSuBozdw=
 			</data>
 		</dict>
 	</dict>

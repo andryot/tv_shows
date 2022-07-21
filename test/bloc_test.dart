@@ -16,9 +16,6 @@ void main() async {
   final BackendService backendService = BackendService(dio: dio);
 
   final KeychainService keychainService = MockedKeychain();
-  TestWidgetsFlutterBinding.ensureInitialized();
-  DartPluginRegistrant.ensureInitialized();
-  HttpOverrides.global = null;
 
   group(
     'LoginBloc',
