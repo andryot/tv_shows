@@ -28,6 +28,24 @@ class BackendService {
 
   final Dio _dio;
 
+  Future<Either<Failure, T>> backendRequest<T>({
+    required Future<Response<void>> Function() request,
+    required T Function(Response<void> response) onSuccess,
+    required Failure failure,
+    required int httpStatusCode,
+  }) async {
+    try {
+      final Response<void> response = await request();
+      if (response.statusCode == httpStatusCode) {
+        return value(onSuccess(response));
+      } else {
+        return error(failure);
+      }
+    } on DioError catch (_) {
+      return error(failure);
+    }
+  }
+
   Future<Either<Failure, User>> login({
     required String email,
     required String password,
@@ -42,36 +60,38 @@ class BackendService {
         ],
       );
 
-      final Response<void> response = await _dio.postUri(
-        uri,
-        data: {
-          BackendServiceJsonKeys.email: email,
-          BackendServiceJsonKeys.password: password,
+      return backendRequest(
+        request: () => _dio.postUri(
+          uri,
+          data: {
+            BackendServiceJsonKeys.email: email,
+            BackendServiceJsonKeys.password: password,
+          },
+        ),
+        onSuccess: (Response<void> response) {
+          final Map<String, dynamic> bodyContents =
+              response.data as Map<String, dynamic>;
+
+          final Map<String, dynamic> combinedData = HashMap();
+
+          combinedData.addAll(bodyContents[BackendServiceJsonKeys.user]
+              as Map<String, dynamic>);
+
+          // add all required fields from header values
+          combinedData[UserJsonKeys.accessToken] =
+              response.headers.value(UserJsonKeys.accessToken);
+          combinedData[UserJsonKeys.client] =
+              response.headers.value(UserJsonKeys.client);
+          combinedData[UserJsonKeys.tokenType] =
+              response.headers.value(UserJsonKeys.tokenType);
+          combinedData[UserJsonKeys.uid] =
+              response.headers.value(UserJsonKeys.uid);
+
+          return User.fromJson(combinedData);
         },
+        failure: const UnauthorizedFailure(),
+        httpStatusCode: HttpStatus.created,
       );
-      if (response.statusCode == HttpStatus.created) {
-        final Map<String, dynamic> bodyContents =
-            response.data as Map<String, dynamic>;
-
-        final Map<String, dynamic> combinedData = HashMap();
-
-        combinedData.addAll(
-            bodyContents[BackendServiceJsonKeys.user] as Map<String, dynamic>);
-
-        // add all required fields from header values
-        combinedData[UserJsonKeys.accessToken] =
-            response.headers.value(UserJsonKeys.accessToken);
-        combinedData[UserJsonKeys.client] =
-            response.headers.value(UserJsonKeys.client);
-        combinedData[UserJsonKeys.tokenType] =
-            response.headers.value(UserJsonKeys.tokenType);
-        combinedData[UserJsonKeys.uid] =
-            response.headers.value(UserJsonKeys.uid);
-
-        return value(User.fromJson(combinedData));
-      } else {
-        return error(const UnauthorizedFailure());
-      }
     } on DioError catch (_) {
       return error(const UnauthorizedFailure());
     }
@@ -88,32 +108,33 @@ class BackendService {
           ServerRoutes.shows,
         ],
       );
-
-      final Response<void> response = await _dio.getUri(
-        uri,
-        options: Options(
-          headers: {
-            UserJsonKeys.accessToken: user.accessToken,
-            UserJsonKeys.client: user.client,
-            UserJsonKeys.tokenType: user.tokenType,
-            UserJsonKeys.uid: user.uid,
-          },
+      return backendRequest(
+        request: () => _dio.getUri(
+          uri,
+          options: Options(
+            headers: {
+              UserJsonKeys.accessToken: user.accessToken,
+              UserJsonKeys.client: user.client,
+              UserJsonKeys.tokenType: user.tokenType,
+              UserJsonKeys.uid: user.uid,
+            },
+          ),
         ),
+        onSuccess: (Response<void> response) {
+          final Map<String, dynamic> bodyContents =
+              response.data as Map<String, dynamic>;
+
+          final List<Show> shows = (bodyContents[BackendServiceJsonKeys.shows]
+                  as List)
+              .map<Show>(
+                  (dynamic show) => Show.fromJson(show as Map<String, dynamic>))
+              .toList();
+
+          return shows;
+        },
+        failure: const UnauthorizedFailure(),
+        httpStatusCode: HttpStatus.ok,
       );
-      if (response.statusCode == HttpStatus.ok) {
-        final Map<String, dynamic> bodyContents =
-            response.data as Map<String, dynamic>;
-
-        final List<Show> shows = (bodyContents[BackendServiceJsonKeys.shows]
-                as List)
-            .map<Show>(
-                (dynamic show) => Show.fromJson(show as Map<String, dynamic>))
-            .toList();
-
-        return value(shows);
-      } else {
-        return error(const UnauthorizedFailure());
-      }
     } on DioError catch (_) {
       return error(const UnauthorizedFailure());
     }
