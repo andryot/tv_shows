@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'bloc/global/global_bloc.dart';
 import 'bloc/theme/theme_cubit.dart';
@@ -16,7 +17,8 @@ void main() {
   final Dio dio = Dio();
 
   BackendService(dio: dio);
-  KeychainService();
+  const FlutterSecureStorage secureStorage = FlutterSecureStorage();
+  KeychainService(flutterSecureStorage: secureStorage);
   runApp(const TVShows());
 }
 
