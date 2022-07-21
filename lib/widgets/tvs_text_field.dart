@@ -10,6 +10,7 @@ class TVSTextField extends StatelessWidget {
   final Color? color;
   final Color? labelColor;
   final void Function(String?)? onChanged;
+
   const TVSTextField({
     Key? key,
     this.obscureText,
@@ -25,25 +26,29 @@ class TVSTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color defaultColor = Theme.of(context).brightness == Brightness.light
+        ? Colors.black
+        : Colors.white;
+
     return TextField(
       onChanged: onChanged,
       keyboardType: textInputType,
       textInputAction: textInputAction,
       obscureText: obscureText ?? false,
       controller: controller,
-      style: TextStyle(color: color ?? Colors.white),
+      style: TextStyle(color: color ?? defaultColor),
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(color: labelColor ?? Colors.white),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: color ?? Colors.white,
+            color: color ?? defaultColor,
             width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: color ?? Colors.white,
+            color: color ?? defaultColor,
             width: 2,
           ),
         ),

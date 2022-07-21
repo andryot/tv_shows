@@ -5,12 +5,17 @@ import 'package:flutter/material.dart';
 
 import '../../model/user.dart';
 import '../../routes/routes.dart';
+import '../../services/keychain_service.dart';
 
 part 'global_event.dart';
 part 'global_state.dart';
 
 class GlobalBloc extends Bloc<_GlobalEvent, GlobalState> {
-  GlobalBloc() : super(const GlobalState.initial()) {
+  final KeychainService _keychainService;
+  GlobalBloc({
+    required KeychainService keychainService,
+  })  : _keychainService = keychainService,
+        super(const GlobalState.initial()) {
     on<_UpdateUserEvent>(_onUpdateUser);
     on<_LogoutEvent>(_onLogout);
   }
@@ -26,8 +31,10 @@ class GlobalBloc extends Bloc<_GlobalEvent, GlobalState> {
     emit(state.copyWith(user: event.user));
   }
 
-  FutureOr<void> _onLogout(_LogoutEvent event, Emitter<GlobalState> emit) {
-    emit(const GlobalState.initial());
+  FutureOr<void> _onLogout(
+      _LogoutEvent event, Emitter<GlobalState> emit) async {
     Navigator.pushReplacementNamed(event.context, TVSRoutes.login);
+    await _keychainService.removeUser();
+    emit(const GlobalState.initial());
   }
 }

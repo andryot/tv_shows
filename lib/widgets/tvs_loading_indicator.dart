@@ -1,16 +1,15 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../style/colors.dart';
-
 class TVSLoadingIndicator extends StatefulWidget {
+  final Color? color;
   const TVSLoadingIndicator({
     Key? key,
     required this.radius,
     required this.dotRadius,
+    this.color,
   }) : super(key: key);
   final double radius;
   final double dotRadius;
@@ -40,8 +39,8 @@ class _TVSLoadingIndicatorState extends State<TVSLoadingIndicator> {
   Widget build(BuildContext context) {
     final double radius = widget.radius;
     final double dotRadius = widget.dotRadius;
-    const Color primaryColor = TVSColors.primaryColor;
 
+    final Color primaryColor = widget.color ?? Theme.of(context).primaryColor;
     return SizedBox(
       height: radius * 2.5,
       width: radius * 2.5,

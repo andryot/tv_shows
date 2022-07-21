@@ -8,6 +8,7 @@ import '../bloc/global/global_bloc.dart';
 import '../bloc/login/login_bloc.dart';
 import '../routes/routes.dart';
 import '../services/backend_service.dart';
+import '../services/keychain_service.dart';
 import '../style/colors.dart';
 import '../style/icons.dart';
 import '../style/images.dart';
@@ -23,6 +24,7 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => LoginBloc(
         backendService: BackendService.instance,
+        keychainService: KeychainService.instance,
       ),
       child: const _LoginScreen(),
     );
@@ -48,7 +50,7 @@ class _LoginScreen extends StatelessWidget {
         onTap: FocusScope.of(context).unfocus,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: TVSColors.primaryColor,
+          backgroundColor: TVSColors.primaryColorLight,
           body: BlocBuilder<LoginBloc, LoginState>(
             builder: (context, state) {
               return Stack(
@@ -113,6 +115,7 @@ class _LoginScreen extends StatelessWidget {
                           TVSTextField(
                             onChanged: (_) => bloc.onChanged(),
                             labelText: "Email",
+                            color: Colors.white,
                             textInputType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
                             controller: bloc.emailEditingController,
@@ -121,6 +124,7 @@ class _LoginScreen extends StatelessWidget {
                           TVSTextField(
                             onChanged: (_) => bloc.onChanged(),
                             labelText: "Password",
+                            color: Colors.white,
                             obscureText: state.isPasswordToggled,
                             textInputType: TextInputType.visiblePassword,
                             controller: bloc.passwordEditingController,
