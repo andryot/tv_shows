@@ -11,4 +11,6 @@ abstract class TVSImages {
 
   static const String imgPlaceholderSmall =
       'assets/images/img-placeholder-user1.png';
+  static const String imgPlaceholderBig =
+      'assets/images/img-placeholder-user2.png';
 }

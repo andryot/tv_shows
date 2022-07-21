@@ -59,7 +59,13 @@ class _ShowListScreen extends StatelessWidget {
                 splashRadius: 25,
                 icon: user.imageUrl == null
                     ? Image.asset(TVSImages.imgPlaceholderSmall)
-                    : Image.network(user.imageUrl!),
+                    : Image.network(
+                        user.imageUrl!,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset(
+                          TVSImages.imgPlaceholderSmall,
+                        ),
+                      ),
                 onPressed: () {
                   showModalBottomSheet<void>(
                     backgroundColor: Colors.transparent,
@@ -183,7 +189,14 @@ class _ShowListScreen extends StatelessWidget {
                   child: ClipOval(
                     child: user.imageUrl == null
                         ? Image.asset(TVSImages.imgPlaceholderSmall)
-                        : Image.network(user.imageUrl!),
+                        : Image.network(
+                            user.imageUrl!,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Image.asset(
+                              TVSImages.imgPlaceholderBig,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
                   ),
                 ),
               ),

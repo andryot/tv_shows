@@ -27,7 +27,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     final List<dynamic> results = await Future.wait(<Future<dynamic>>[
       _keychainService.readUser(),
       _keychainService.readThemeMode(),
-      Future.delayed(const Duration(seconds: 3)),
+      Future.delayed(const Duration(seconds: 1)),
     ]);
 
     final User? user = results.first as User?;
