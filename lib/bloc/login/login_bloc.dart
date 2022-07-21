@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../model/user.dart';
 import '../../services/backend_service.dart';
+import '../../services/keychain_service.dart';
 import '../../util/either.dart';
 import '../../util/failure.dart';
 
@@ -14,6 +15,7 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<_LoginEvent, LoginState> {
   final BackendService _backendService;
+  final KeychainService _keychainService;
   late final TextEditingController _emailEditingController;
   late final TextEditingController _passwordEditingController;
 
@@ -21,8 +23,11 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
   TextEditingController get passwordEditingController =>
       _passwordEditingController;
 
-  LoginBloc({required BackendService backendService})
-      : _backendService = backendService,
+  LoginBloc({
+    required BackendService backendService,
+    required KeychainService keychainService,
+  })  : _backendService = backendService,
+        _keychainService = keychainService,
         super(const LoginState.initial()) {
     _emailEditingController = TextEditingController();
     _passwordEditingController = TextEditingController();
@@ -75,6 +80,8 @@ class LoginBloc extends Bloc<_LoginEvent, LoginState> {
       ));
       return null;
     }
+
+    await _keychainService.saveUser(userOrFailure.value);
 
     emit(state.copyWith(
       isLoading: false,

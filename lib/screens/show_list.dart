@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/global/global_bloc.dart';
 import '../bloc/show_list/show_list_bloc.dart';
+import '../bloc/theme/theme_cubit.dart';
 import '../model/user.dart';
 import '../services/backend_service.dart';
-import '../style/colors.dart';
 import '../style/images.dart';
 import '../style/text_style.dart';
 import '../widgets/tvs_elevated_button.dart';
@@ -47,7 +47,9 @@ class _ShowListScreen extends StatelessWidget {
           SliverAppBar(
             automaticallyImplyLeading: false,
             centerTitle: false,
-            titleTextStyle: TVSTextStyle.appBarTitleTextStyle,
+            titleTextStyle: TVSTextStyle.appBarTitleTextStyle(
+              Theme.of(context).brightness,
+            ),
             titleSpacing: 20,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             title: const Text("Shows"),
@@ -148,10 +150,33 @@ class _ShowListScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: Column(
           children: [
-            SizedBox(height: height * 0.12),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SizedBox(height: height * 0.12),
+                const Spacer(),
+                BlocBuilder<ThemeCubit, ThemeMode>(
+                  builder: (context, state) {
+                    return IconButton(
+                      onPressed: () =>
+                          BlocProvider.of<ThemeCubit>(context).switchTheme(),
+                      icon: state == ThemeMode.dark
+                          ? const Icon(
+                              Icons.wb_sunny,
+                              color: Colors.yellow,
+                            )
+                          : const Icon(
+                              Icons.mode_night_rounded,
+                              color: Colors.black,
+                            ),
+                    );
+                  },
+                )
+              ],
+            ),
             ClipOval(
               child: Container(
-                color: TVSColors.primaryColor,
+                color: Theme.of(context).primaryColor,
                 height: height * 0.25,
                 child: Padding(
                   padding: const EdgeInsets.all(3.0),
@@ -166,8 +191,7 @@ class _ShowListScreen extends StatelessWidget {
             SizedBox(height: height * 0.07),
             TVSTextField(
               labelText: "Email",
-              color: Colors.black,
-              labelColor: TVSColors.primaryColor,
+              labelColor: Theme.of(context).primaryColor,
               controller: TextEditingController(text: user.email),
             ),
             const Spacer(),
@@ -179,7 +203,7 @@ class _ShowListScreen extends StatelessWidget {
                   Navigator.pop(context);
                   globalBloc.logout(context);
                 },
-                color: TVSColors.primaryColor,
+                color: Theme.of(context).primaryColor,
                 textColor: Colors.white,
               ),
             ),

@@ -24,15 +24,14 @@ abstract class TVSTextStyle {
     fontWeight: FontWeight.bold,
   );
 
-  static const TextStyle appBarTitleTextStyle = TextStyle(
-    fontSize: 35,
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
-  );
+  static TextStyle appBarTitleTextStyle(Brightness brightness) => TextStyle(
+        fontSize: 35,
+        fontWeight: FontWeight.bold,
+        color: brightness == Brightness.dark ? Colors.white : Colors.black,
+      );
 
   static const TextStyle showTileTitleTextStyle = TextStyle(
     fontSize: 24,
-    color: Colors.black,
     fontWeight: FontWeight.w500,
   );
 }

@@ -4,15 +4,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/global/global_bloc.dart';
+import 'bloc/theme/theme_cubit.dart';
 import 'routes/router.dart';
 import 'routes/routes.dart';
 import 'services/backend_service.dart';
+import 'services/keychain_service.dart';
+import 'style/themes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   final Dio dio = Dio();
 
   BackendService(dio: dio);
+  KeychainService();
   runApp(const TVShows());
 }
 
@@ -25,15 +29,30 @@ class TVShows extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return BlocProvider(
-      create: (context) => GlobalBloc(),
-      child: MaterialApp(
-        title: 'TV Shows',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => GlobalBloc(
+            keychainService: KeychainService.instance,
+          ),
         ),
-        onGenerateRoute: TVSRouter.onGenerateRoute,
-        initialRoute: TVSRoutes.splash,
+        BlocProvider(
+          create: (context) => ThemeCubit(
+            keychainService: KeychainService.instance,
+          ),
+        ),
+      ],
+      child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (context, state) {
+          return MaterialApp(
+            title: 'TV Shows',
+            darkTheme: TVSThemes.dark,
+            theme: TVSThemes.light,
+            themeMode: state,
+            onGenerateRoute: TVSRouter.onGenerateRoute,
+            initialRoute: TVSRoutes.splash,
+          );
+        },
       ),
     );
   }

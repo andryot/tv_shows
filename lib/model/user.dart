@@ -46,6 +46,18 @@ class User {
         client = json[UserJsonKeys.client] as String,
         tokenType = json[UserJsonKeys.tokenType] as String,
         uid = json[UserJsonKeys.uid] as String;
+
+  Map<String, dynamic> toJson() {
+    return {
+      UserJsonKeys.id: id,
+      UserJsonKeys.email: email,
+      UserJsonKeys.imageUrl: imageUrl,
+      UserJsonKeys.accessToken: accessToken,
+      UserJsonKeys.client: client,
+      UserJsonKeys.tokenType: tokenType,
+      UserJsonKeys.uid: uid,
+    };
+  }
 }
 
 abstract class UserJsonKeys {

@@ -43,7 +43,11 @@ class TVSElevatedButton extends StatelessWidget {
               ? null
               : onPressed,
       child: isLoading == true
-          ? const TVSLoadingIndicator(radius: 11.2, dotRadius: 4.77)
+          ? const TVSLoadingIndicator(
+              radius: 11.2,
+              dotRadius: 4.77,
+              color: TVSColors.primaryColorLight,
+            )
           : Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
