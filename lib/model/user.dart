@@ -7,6 +7,7 @@ class User {
   final String? client;
   final String? tokenType;
   final String? uid;
+  final int? expiry;
 
   User({
     this.id,
@@ -16,6 +17,7 @@ class User {
     this.client,
     this.tokenType,
     this.uid,
+    this.expiry,
   });
 
   User copyWith({
@@ -26,6 +28,7 @@ class User {
     String? client,
     String? tokenType,
     String? uid,
+    int? expiry,
   }) =>
       User(
         id: id ?? this.id,
@@ -35,6 +38,7 @@ class User {
         client: client ?? this.client,
         tokenType: tokenType ?? this.tokenType,
         uid: uid ?? this.uid,
+        expiry: expiry ?? this.expiry,
       );
 
   @override
@@ -45,7 +49,8 @@ class User {
         accessToken = json[UserJsonKeys.accessToken] as String,
         client = json[UserJsonKeys.client] as String,
         tokenType = json[UserJsonKeys.tokenType] as String,
-        uid = json[UserJsonKeys.uid] as String;
+        uid = json[UserJsonKeys.uid] as String,
+        expiry = (json[UserJsonKeys.expiry] as int);
 
   Map<String, dynamic> toJson() {
     return {
@@ -56,6 +61,7 @@ class User {
       UserJsonKeys.client: client,
       UserJsonKeys.tokenType: tokenType,
       UserJsonKeys.uid: uid,
+      UserJsonKeys.expiry: expiry,
     };
   }
 }
@@ -69,4 +75,5 @@ abstract class UserJsonKeys {
   static const String client = 'client';
   static const String tokenType = 'token-type';
   static const String uid = 'uid';
+  static const String expiry = 'expiry';
 }

@@ -86,6 +86,10 @@ class BackendService {
               response.headers.value(UserJsonKeys.tokenType);
           combinedData[UserJsonKeys.uid] =
               response.headers.value(UserJsonKeys.uid);
+          combinedData[UserJsonKeys.expiry] =
+              response.headers.value(UserJsonKeys.expiry) == null
+                  ? null
+                  : int.tryParse(response.headers.value(UserJsonKeys.expiry)!);
 
           return User.fromJson(combinedData);
         },

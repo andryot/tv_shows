@@ -41,8 +41,13 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       themeMode = ThemeMode.dark;
     }
 
-    // Redirect to login if no user is found
-    if (user == null) {
+    final int currentSecondsSinceEpoch =
+        DateTime.now().millisecondsSinceEpoch ~/ 1000;
+
+    // Redirect to login if no user is found or the user is expired.
+    if (user == null ||
+        user.expiry == null ||
+        user.expiry! < currentSecondsSinceEpoch) {
       emit(state.copyWith(
         redirectTo: TVSRoutes.login,
         themeMode: themeMode,
