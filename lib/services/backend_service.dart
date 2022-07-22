@@ -28,14 +28,14 @@ class BackendService {
 
   final Dio _dio;
 
-  Future<Either<Failure, T>> backendRequest<T>({
-    required Future<Response<void>> Function() request,
-    required T Function(Response<void> response) onSuccess,
+  Future<Either<Failure, T>> backendRequest<T, U>({
+    required Future<Response<U>> Function() request,
+    required T Function(Response<U> response) onSuccess,
     required Failure failure,
     required int httpStatusCode,
   }) async {
     try {
-      final Response<void> response = await request();
+      final Response<U> response = await request();
       if (response.statusCode == httpStatusCode) {
         return value(onSuccess(response));
       } else {
@@ -61,7 +61,7 @@ class BackendService {
       );
 
       return backendRequest(
-        request: () => _dio.postUri(
+        request: () => _dio.postUri<void>(
           uri,
           data: {
             BackendServiceJsonKeys.email: email,
@@ -113,7 +113,7 @@ class BackendService {
         ],
       );
       return backendRequest(
-        request: () => _dio.getUri(
+        request: () => _dio.getUri<void>(
           uri,
           options: Options(
             headers: {
